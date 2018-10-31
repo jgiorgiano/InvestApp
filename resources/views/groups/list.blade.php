@@ -13,7 +13,7 @@
                 <tr>                    
                 <th scope="row">{{ $group->id }}</th>
                 <td>{{ $group->name}}</td>
-                <td>{{ $group->user->name}} </td>    {{-- isso funciona pq criou o relacionamento no model/Entity do grupo --}}
+                <td>{{ $group->user['name']}}</td>    {{-- isso funciona pq criou o relacionamento no model/Entity do grupo --}}
                 <td>{{ $group->institution->name}}</td>          {{-- isso funciona pq criou o relacionamento no model/Entity do grupo --}}                      
                 <td>
                     {!! Form::open(['route'=> ['group.destroy', $group->id], 'method' => 'DELETE']) !!} 
