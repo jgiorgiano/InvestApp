@@ -1,0 +1,65 @@
+#login{
+height: 100%;
+padding: 20px;
+
+}
+.fh{   
+    height: 100vh;
+}
+
+#login h1{
+font-family: roboto, sans serit;
+font-weight: 600;
+color: aliceblue;
+padding-top: 20px;
+padding-bottom: 0;
+margin-bottom: 0;
+font-size: 3.8em;
+}
+
+#login h6{
+    font-family: roboto, sans serit;
+    font-weight: 400;
+    color: aliceblue;
+    padding-top: 0;  
+    margin-top: -10px; 
+    font-size: 0.9em;
+}
+
+#login h3{
+    font-family: roboto, sans serit;
+    font-weight: 500;
+    color: aliceblue;
+    padding-top: 20px;   
+    font-size: 2em;        
+}  
+
+/*
+Formatacao Menu Lateral
+*/
+
+#menuLateral .navbar-nav {
+    height: 100%;
+    padding: 20px;
+}
+
+#menuLateral a{
+    font-family: roboto, sans serit;
+    font-weight: 500;
+    color: aliceblue;
+    padding: 12px 0;   
+    font-size: 1.2em;
+    float: left;
+    text-align: center;
+    
+}
+ 
+#menuLateral a:hover{    
+    font-weight: 800;
+    color: rgb(92, 96, 99);      
+}
+
+#menuLateral i{
+    font-size: 2em;
+    padding: 0 10px;
+}
