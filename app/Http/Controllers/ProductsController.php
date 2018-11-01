@@ -52,8 +52,11 @@ class ProductsController extends Controller
      */
     public function index($institution_id)
     {        
-        $products = $this->repository->all();
-        $institution = Institution::find($institution_id); // isso funciona pq add o model pra usar nesse controller.        
+        $institution = Institution::find($institution_id); // isso funciona pq add o model pra usar nesse controller.
+
+        // $products = $this->repository->all(); recupera todos os produtos
+        // $product = $this->repository->findWhere(['institution_id' => $institution_id]);
+        $products = $institution->products; // melhor forma usando model e seu relacionamentos
 
         return view('products.index', [
             'products' => $products,
@@ -111,11 +114,15 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($institution_id, $product_id)
     {
-        $product = $this->repository->find($id);
+        $institution = Institution::find($institution_id);
+        $product = $institution->products->find($product_id);        
 
-        return view('products.edit', compact('product'));
+        return view('products.edit', [
+            'institution' => $institution,
+            'product' => $product,
+        ]);
     }
 
     /**
@@ -128,37 +135,21 @@ class ProductsController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(ProductsUpdateRequest $request, $id)
+    public function update(ProductsUpdateRequest $request, $institution_id, $product_id)
     {
-        try {
+        
+        $updated = $this->service->update($request->all(), $institution_id, $product_id);
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+        session()->flash('success', [
+            'success' => $updated['success'],
+            'message' => $updated['message'],
+        ]);
 
-            $product = $this->repository->update($request->all(), $id);
+        return redirect()->route('institution.products.index', $institution_id);
 
-            $response = [
-                'message' => 'Products updated.',
-                'data'    => $product->toArray(),
-            ];
 
-            if ($request->wantsJson()) {
 
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+        
     }
 
 
@@ -169,18 +160,16 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($institution_id, $product_id)
     {
-        $deleted = $this->repository->delete($id);
+        $deleted = $this->service->delete($institution_id, $product_id);
 
-        if (request()->wantsJson()) {
+        session()->flash('success', [
+            'success' => $deleted['success'],
+            'message' => $deleted['message'],
+        ]);
 
-            return response()->json([
-                'message' => 'Products deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
-
-        return redirect()->back()->with('message', 'Products deleted.');
+        return redirect()->route('institution.products.index', $institution_id);   
+       
     }
 }

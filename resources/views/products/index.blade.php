@@ -25,7 +25,38 @@
                         @include('layouts.submit', ['input' => 'Cadastrar', 'atributes'=> ['class' => 'btn btn-success', 'type' => 'submit']])
                     {!! Form::close() !!}
 
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome do Produto</th>
+                            <th scope="col">Descricão</th>
+                            <th scope="col">Taxa de juros</th>                            
+                            <th scope="col">Indexador</th>
+                            <th scope="col">Menu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             @forelse($institution->products as $product)
+                                <tr>                    
+                                <th scope="row">{{ $product->id }}</th>
+                                <td>{{ $product->name}}</td>
+                                <td>{{ $product->description}}</td>    
+                                <td>{{ $product->interest_rate}}</td>          
+                                <td>{{ $product->index}}</td>                     
+                                <td>
+                                    {!! Form::open(['route'=> ['institution.products.destroy', $institution->id, $product->id], 'method' => 'DELETE']) !!} 
+                                        {!! Form::button("Remover", ['class' => 'btn btn-sm btn-warning', 'type' => 'submit'] ) !!}                        
+                                    {!! Form::close() !!}                                
+                                <a href="{{ route('institution.products.edit', [$institution->id, $product->id]) }}" class="btn btn-sm btn-info">Editar</a>                                    
+                                </td>
+                                </tr>
+                            @empty
 
+
+                            @endforelse
+                        </tbody>
+                        </table>
 
                 </div>
             </div>        

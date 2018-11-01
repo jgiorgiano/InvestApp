@@ -25,6 +25,12 @@ class ProductsValidator extends LaravelValidator
         'interest_rate'     => 'required', 
         'index'             => 'required', 
         ],
-        ValidatorInterface::RULE_UPDATE => [],
+        ValidatorInterface::RULE_UPDATE => [
+            'institution_id'    => 'required', 
+            'name'              => 'required', 
+            'description'       => 'required', 
+            'interest_rate'     => 'required', 
+            'index'             => 'required',
+        ],
     ];
 }
