@@ -1,17 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row justify-content">
-        <div class="col-md-2 px-0">
-            @include('Includes.menuLateral')
-        </div>
-        <div class="col-md-8 offset-md-1 pt-2">
-            <div class="card">
             <div class="card-header">editar Grupo: <strong>{{ $group->name }}</strong></div>
 
-                <div class="card-body">
-
+            <div class="card-body">
+            
                     @if (session('success'))
                         <div class="alert <?= session('success')['success'] ? 'alert-success' : 'alert-danger'?> " role="alert">
                             {{ session('success')['message'] }}
@@ -25,10 +18,6 @@
                         @include('layouts.submit', ['input' => 'Atualizar', 'atributes'=> ['class' => 'btn btn-success', 'type' => 'submit']])
                     {!! Form::close() !!}     
                     
-                </div>
+            </div>                
                  
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

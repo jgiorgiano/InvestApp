@@ -20,8 +20,8 @@ class CreateGroupsTable extends Migration
 			$table->string('name');
 			$table->unsignedInteger('user_id');
 			$table->unsignedInteger('institution_id');
-			$table->timestamps();
-			$table->softDeletes();
+			$table->timestampTz();
+			$table->softDeletesTz();
 
 
 			//Foreign keys

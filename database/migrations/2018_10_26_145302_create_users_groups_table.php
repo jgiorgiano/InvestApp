@@ -18,8 +18,8 @@ class CreateUsersGroupsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('group_id');
             $table->string('permission')->default('default');
-			$table->timestampsTz();
-			$table->softDeletes();
+			$table->timestampTz();
+			$table->softDeletesTz();
 
 
 			//Foreign keys

@@ -48,11 +48,11 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 @if (Route::has('register'))
                                     <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 @endif
-                            </li>
+                            </li> --}}
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -60,6 +60,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a href="{{ route('home' )}}" class="dropdown-item">Home</a>                               
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -78,7 +79,18 @@
         </nav>
 
         <main>
-            @yield('content')
+            <div class="container-fluid">
+                <div class="row justify-content">
+                    <div class="col-md-2 px-0">
+                        @include('Includes.menuLateral')
+                    </div>
+                    <div class="col-md-8 offset-md-1 pt-2">
+                        <div class="card">
+                            @yield('content')
+                        </div>        
+                    </div> 
+                </div>
+            </div>
         </main>
     </div>
 </body>

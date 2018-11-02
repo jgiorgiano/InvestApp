@@ -1,15 +1,7 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="container-fluid">
-    <div class="row justify-content">
-        <div class="col-md-2 px-0">
-            @include('Includes.menuLateral')
-        </div>
-        <div class="col-md-8 offset-md-1 pt-2">
-            <div class="card">
+@section('content')        
             <div class="card-header">{{ $institution->name }} > Produtos</div>
-
                 <div class="card-body">
                     @if (session('success'))
                         <div class="alert <?= session('success')['success'] ? 'alert-success' : 'alert-danger'?> " role="alert">
@@ -56,11 +48,6 @@
 
                             @endforelse
                         </tbody>
-                        </table>
-
-                </div>
-            </div>        
-        </div>
-    </div>
-</div>
+                    </table>
+                </div>            
 @endsection
