@@ -18,7 +18,13 @@ class MovimentValidator extends LaravelValidator
      * @var array
      */
     protected $rules = [
-        ValidatorInterface::RULE_CREATE => [],
+        ValidatorInterface::RULE_CREATE => [
+            'user_id'       => 'required',
+            'product_id'    => 'required',
+            'group_id'      => 'required',
+            'value'         => 'required',
+            'type'          => 'required',
+        ],
         ValidatorInterface::RULE_UPDATE => [],
     ];
 }

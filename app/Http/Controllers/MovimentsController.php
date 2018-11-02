@@ -11,6 +11,10 @@ use App\Http\Requests\MovimentCreateRequest;
 use App\Http\Requests\MovimentUpdateRequest;
 use App\Repositories\MovimentRepository;
 use App\Validators\MovimentValidator;
+use App\Entities\Group;
+use App\Entities\Products;
+use Auth;
+use App\Services\MovimentsService;
 
 /**
  * Class MovimentsController.
@@ -29,17 +33,64 @@ class MovimentsController extends Controller
      */
     protected $validator;
 
+    protected $service;
+
     /**
      * MovimentsController constructor.
      *
      * @param MovimentRepository $repository
      * @param MovimentValidator $validator
      */
-    public function __construct(MovimentRepository $repository, MovimentValidator $validator)
+    public function __construct(MovimentRepository $repository, MovimentValidator $validator, MovimentsService $service)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
+        $this->service    = $service;
     }
+
+    public function investing(){ 
+
+        $user = Auth::user(); // recupera os dados do usuario logado no sistema       
+
+        // $groupList      = Group::all()->pluck('name', 'id');     Recupera todo os grupos cadastrados no sistema
+        $groupList      = $user->groups->pluck('name', 'id');       // Recupera dados do usuario->chama relacionamento groups no model -> traz dados selecionados
+        $productList    = Products::all()->pluck('name', 'id');
+        
+
+        return view('moviments.investing',[
+            'groupList' => $groupList,
+            'productList' => $productList,
+        ]);
+
+    }
+
+    public function storeInvest(Request $request){
+      
+        $request = $this->service->storeInvest($request->all(), Auth::user()->id);
+
+
+        session()->flash('success', [
+            'success' => $request['success'],
+            'message' => $request['message']
+        ]);
+
+        return redirect()->route('moviments.invest');    
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Display a listing of the resource.

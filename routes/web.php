@@ -19,6 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/user', 'UsersController@index');
+
+
+Route::get('moviments', ['as' => 'moviments.invest', 'uses' => 'MovimentsController@investing']);
+Route::post('moviments', ['as' => 'moviments.invest.store', 'uses' => 'MovimentsController@storeInvest']);
+ 
+
 Route::resource('user', 'UsersController');
 Route::resource('institution', 'InstitutionsController');
 Route::resource('group', 'GroupsController');
@@ -26,3 +32,4 @@ Route::resource('institution.products', 'ProductsController');
 
 
 Route::post('group/{group_id}/user', ['as' => 'group.user.store', 'uses' => 'GroupsController@userStore']);
+
