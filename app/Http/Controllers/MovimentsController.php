@@ -56,6 +56,7 @@ class MovimentsController extends Controller
         $groupList      = $user->groups->pluck('name', 'id');       // Recupera dados do usuario->chama relacionamento groups no model -> traz dados selecionados
         $productList    = Products::all()->pluck('name', 'id');
         
+        
 
         return view('moviments.investing',[
             'groupList' => $groupList,
@@ -66,7 +67,7 @@ class MovimentsController extends Controller
 
     public function storeInvest(Request $request){
       
-        $request = $this->service->storeInvest($request->all(), Auth::user()->id);
+        $request = $this->service->storeInvest($request->all(), Auth::user()->id, Products::all()->pluck('name', 'id'));
 
 
         session()->flash('success', [

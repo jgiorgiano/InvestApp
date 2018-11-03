@@ -44,5 +44,27 @@ class Group extends Model implements Transformable
     }
 
 
+    public function moviment()
+    {
+
+        return $this->hasMany(Moviment::class);
+    }
+
+    public function  getTotalInvestAttribute(){
+
+        $totalInvest = 0;
+
+        foreach($this->moviment as $moviment)
+
+            $totalInvest += $moviment->value;
+
+            return $totalInvest;
+        }
+
+
+       
+
+    
+
 }
 

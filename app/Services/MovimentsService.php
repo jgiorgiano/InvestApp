@@ -21,7 +21,7 @@ public function __construct(MovimentRepository $repository, MovimentValidator $v
 
 }
 
-public function StoreInvest($data, $user_id){
+public function StoreInvest($data, $user_id, $productList){
 
     try{
 
@@ -34,7 +34,7 @@ public function StoreInvest($data, $user_id){
 
     return [
         'success'   => true,
-        'message'   => 'Aplicacão de R$ ' . $data['value'] . ' efetuada com sucesso no produto ' . $data['product_id'] . '.',
+        'message'   => 'Aplicacão de R$ ' . number_format($data['value'],2 , ",", ".") . ' efetuada com sucesso no produto ' . $productList[$data['product_id']] . '.',
         'data'      => $request,
     ];        
     

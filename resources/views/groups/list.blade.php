@@ -3,6 +3,7 @@
             <tr>
             <th scope="col">#</th>
             <th scope="col">Nome do Grupo</th>
+            <th scope="col">Total Investidos</th>
             <th scope="col">Gestor do Grupo</th>
             <th scope="col">Instituicao</th>                            
             <th scope="col">Menu</th>
@@ -13,6 +14,7 @@
                 <tr>                    
                 <th scope="row">{{ $group->id }}</th>
                 <td>{{ $group->name}}</td>
+                <td>R$ {{ number_format($group->TotalInvest, 2, ",", ".") }}</td>
                 <td>{{ $group->user['name']}}</td>    {{-- isso funciona pq criou o relacionamento no model/Entity do grupo --}}
                 <td>{{ $group->institution->name}}</td>          {{-- isso funciona pq criou o relacionamento no model/Entity do grupo --}}                      
                 <td>
