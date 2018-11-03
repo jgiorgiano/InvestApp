@@ -40,6 +40,7 @@ class GroupsController extends Controller
      */
     public function __construct(GroupRepository $repository, GroupValidator $validator, GroupService $service, UserRepository $UserRepository, InstitutionsRepository $InstitutionsRepository)
     {
+        $this->middleware('auth');
         $this->repository = $repository;
         $this->validator  = $validator;
         $this->service  = $service;

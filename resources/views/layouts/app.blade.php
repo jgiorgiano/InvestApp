@@ -46,7 +46,7 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link text-white" href="/">{{ __('Login') }}</a>
                             </li>
                             {{-- <li class="nav-item">
                                 @if (Route::has('register'))
@@ -78,7 +78,10 @@
             </div>
         </nav>
 
+
+
         <main>
+            @if(!isset($home))
             <div class="container-fluid">
                 <div class="row justify-content">
                     <div class="col-md-2 px-0">
@@ -86,11 +89,14 @@
                     </div>
                     <div class="col-md-8 offset-md-1 pt-2">
                         <div class="card">
+            @endif                
                             @yield('content')
+            @if(!isset($home))                
                         </div>        
                     </div> 
                 </div>
             </div>
+            @endif
         </main>
     </div>
 </body>

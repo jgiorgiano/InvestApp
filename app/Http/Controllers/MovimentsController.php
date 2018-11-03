@@ -43,6 +43,7 @@ class MovimentsController extends Controller
      */
     public function __construct(MovimentRepository $repository, MovimentValidator $validator, MovimentsService $service)
     {
+        $this->middleware('auth');
         $this->repository = $repository;
         $this->validator  = $validator;
         $this->service    = $service;
