@@ -23,6 +23,18 @@ class Moviment extends Model implements Transformable
     protected $fillable = ['user_id', 'product_id', 'group_id', 'value', 'type'];
 
 
+    public function scopeInFlows($query){
+
+        return $query->where('type', 1);
+
+    }
+
+    public function scopeOutFlows($query){
+
+        return $query->where('type', 2);
+        
+    }
+
 
 
    public function user()
@@ -40,6 +52,7 @@ class Moviment extends Model implements Transformable
         return $this->belongsTo(Products::class);
    } 
 
+   
 }
 
 

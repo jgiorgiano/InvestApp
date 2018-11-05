@@ -52,12 +52,13 @@ class Group extends Model implements Transformable
 
     public function  getTotalInvestAttribute(){
 
-        $totalInvest = 0;
 
+        $totalInvest = $this->moviment->sum('value');
+
+       /*  $totalInvest = 0;
         foreach($this->moviment as $moviment)
-
-            $totalInvest += $moviment->value;
-
+            $totalInvest += $moviment->value; */
+            
             return $totalInvest;
         }
 

@@ -36,7 +36,15 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class, 'users_groups');
     }
 
+    public function products()
+    {
+        return $this->hasMany(Products::class);
+    }
 
+    public function moviments()
+    {
+        return $this->hasMany(Moviment::class);
+    }
 
 
  // mutator em uso para tratamento dos dados recebidos do DB para melhor UX

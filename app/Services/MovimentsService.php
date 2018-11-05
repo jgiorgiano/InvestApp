@@ -55,6 +55,40 @@ public function StoreInvest($data, $user_id, $productList){
 
 }
 
+public function getBackStore($data, $user_id, $productList){
+
+    try{
+
+    $data['user_id'] = $user_id;
+    $data['type']    = 2;    
+
+    $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+    $request = $this->repository->create($data);
+    
+
+    return [
+        'success'   => true,
+        'message'   => 'Resgate de R$ ' . number_format($data['value'],2 , ",", ".") . ' efetuado com sucesso no produto ' . $productList[$data['product_id']] . '.',
+        'data'      => $request,
+    ];        
+    
+    }
+    catch(\Exception $e){
+       
+        switch (get_class($e)) {
+            case QueryException::Class      : return ['success' => false, 'message' => $e->getMessage() . 'Houve um erro no processo de Resgate'];                 
+                break;
+            case ValidatorException::Class  : return ['success' => false, 'message' => $e->getMessageBag() . 'Houve um erro no processo de Resgate'];                 
+                break;
+            case Exception::Class           : return ['success' => false, 'message' => $e->getMessage() . 'Houve um erro no processo de Resgate'];                 
+                break;                
+            default                         : return ['success' => false, 'message' => $e->getMessage() . 'Houve um erro no processo de Resgate'];
+                break;
+        }
+    }    
+
+}
 
 
 

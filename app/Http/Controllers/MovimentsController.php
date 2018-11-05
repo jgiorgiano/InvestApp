@@ -13,6 +13,7 @@ use App\Repositories\MovimentRepository;
 use App\Validators\MovimentValidator;
 use App\Entities\Group;
 use App\Entities\Products;
+use App\Entities\Moviment;
 use Auth;
 use App\Services\MovimentsService;
 
@@ -49,15 +50,28 @@ class MovimentsController extends Controller
         $this->service    = $service;
     }
 
+
+    public function index(){    
+
+        return view('moviments.index', [
+            'products_list' => Products::all(),
+            'moviment' => Moviment::all(),
+        ]);
+    }
+    
+    public function all(){
+        return view('moviments.all', [
+            'moviment_list' => Auth::user()->moviments,
+        ]);
+    }
+
     public function investing(){ 
 
         $user = Auth::user(); // recupera os dados do usuario logado no sistema       
 
         // $groupList      = Group::all()->pluck('name', 'id');     Recupera todo os grupos cadastrados no sistema
         $groupList      = $user->groups->pluck('name', 'id');       // Recupera dados do usuario->chama relacionamento groups no model -> traz dados selecionados
-        $productList    = Products::all()->pluck('name', 'id');
-        
-        
+        $productList    = Products::all()->pluck('name', 'id');              
 
         return view('moviments.investing',[
             'groupList' => $groupList,
@@ -70,7 +84,6 @@ class MovimentsController extends Controller
       
         $request = $this->service->storeInvest($request->all(), Auth::user()->id, Products::all()->pluck('name', 'id'));
 
-
         session()->flash('success', [
             'success' => $request['success'],
             'message' => $request['message']
@@ -80,39 +93,48 @@ class MovimentsController extends Controller
 
     }
 
+    public function getBack(){ 
 
+        $user = Auth::user(); // recupera os dados do usuario logado no sistema       
 
+        // $groupList      = Group::all()->pluck('name', 'id');     Recupera todo os grupos cadastrados no sistema
+        $groupList      = $user->groups->pluck('name', 'id');       // Recupera dados do usuario->chama relacionamento groups no model -> traz dados selecionados
+        $productList    = Products::all()->pluck('name', 'id');
 
+        return view('moviments.getBack',[
+            'groupList' => $groupList,
+            'productList' => $productList,
+        ]);
 
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $moviments = $this->repository->all();
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $moviments,
-            ]);
-        }
-
-        return view('moviments.index', compact('moviments'));
     }
+
+
+    public function getBackStore(Request $request){       
+      
+        $request = $this->service->getBackStore($request->all(), Auth::user()->id, Products::all()->pluck('name', 'id'));        
+
+        session()->flash('success', [
+            'success' => $request['success'],
+            'message' => $request['message']
+        ]);
+
+        return redirect()->route('moviments.getBack');    
+
+    }
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Store a newly created resource in storage.

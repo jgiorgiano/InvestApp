@@ -25,6 +25,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('moviments', ['as' => 'moviments.invest', 'uses' => 'MovimentsController@investing']);
 Route::post('moviments', ['as' => 'moviments.invest.store', 'uses' => 'MovimentsController@storeInvest']);
+Route::get('user.moviments', ['as' => 'moviments.index', 'uses' => 'MovimentsController@index']);
+Route::get('user.moviments.all', ['as' => 'moviments.all', 'uses' => 'MovimentsController@all']);
+Route::get('user.moviments.getBack', ['as' => 'moviments.getBack', 'uses' => 'MovimentsController@getBack']);
+Route::post('user.moviments.getBackStore', ['as' => 'moviments.getBack.store', 'uses' => 'MovimentsController@getBackStore']);
  
 
 Route::resource('user', 'UsersController');

@@ -5,6 +5,7 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Auth;
 
 /**
  * Class Products.
@@ -28,6 +29,33 @@ class Products extends Model implements Transformable
     {
         return $this->belongsTo(Institution::class);
     }
+
+    public function moviments()
+    {
+        return $this->hasMany(Moviment::class, 'product_id'); // precisei colocar segundo parametro pq a coluna esta product_id e o model esta products.
+    }
+
+    public function valueFromUser(user $user){
+       
+        $inFlows = $this->moviments()->inFlows()->where('user_id', $user->id)->sum('value');
+        $outFlows = $this->moviments()->outFlows()->where('user_id', $user->id)->sum('value');
+        $total = $inFlows - $outFlows;
+
+        return 'R$ ' . number_format($total, 2, "," , ".");
+    }
+
+    public function getTotal(user $user){
+
+
+       $inFlows = $user->moviments()->inFlows()->sum('value');
+       $outFlows = $user->moviments()->outFlows()->sum('value');
+
+       $total = $inFlows - $outFlows;
+       
+       return 'R$ ' . number_format($total, 2, "," , ".");
+        
+    }
+   
 
 
 }

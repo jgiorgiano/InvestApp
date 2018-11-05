@@ -14,6 +14,16 @@
       </li>
       <li class="nav-item">
           <a class="nav-link" href="{{ route('moviments.invest')}}"><i class="far fa-money-bill-alt"></i>Investir</a>
+      </li>
+      <li class="nav-item">
+            <a class="nav-link" href="{{ route('moviments.getBack')}}"><i class="far fa-money-bill-alt"></i>Resgatar</a>
         </li>
+      <li class="nav-item">
+          <a class="nav-link" href="{{ route('moviments.index')}}"><i class="fas fa-dollar-sign"></i>Investimentos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('moviments.all')}}"><i class="fas fa-dollar-sign"></i>Extrato</a>
+    </li>
+
     </ul>  
 </nav>

@@ -14,6 +14,7 @@ use App\Validators\ProductsValidator;
 use App\Entities\Institution;
 use App\Services\ProductService;
 
+
 /**
  * Class ProductsController.
  *
@@ -38,14 +39,14 @@ class ProductsController extends Controller
      * @param ProductsRepository $repository
      * @param ProductsValidator $validator
      */
-    public function __construct(ProductsRepository $repository, ProductsValidator $validator, ProductService $service)
+     public function __construct(ProductsRepository $repository, ProductsValidator $validator, ProductService $service)
     {
         $this->middleware('auth');
         $this->repository   = $repository;
         $this->validator    = $validator;
         $this->service      = $service;
-    }
-
+    } 
+ 
     /**
      * Display a listing of the resource.
      *
@@ -53,6 +54,7 @@ class ProductsController extends Controller
      */
     public function index($institution_id)
     {        
+        
         $institution = Institution::find($institution_id); // isso funciona pq add o model pra usar nesse controller.
 
         // $products = $this->repository->all(); recupera todos os produtos
