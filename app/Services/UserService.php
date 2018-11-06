@@ -6,6 +6,8 @@ use App\Repositories\UserRepository;
 use App\Validators\UserValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
+use Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -32,7 +34,7 @@ class UserService
                 'cpf'   => $data['cpf'],
                 'phone' => $data['phone'],
                 'email' => $data['email'],
-                'password' => \Hash::make($data['password']),
+                'password' => Hash::make($data['password']),
             ]);
 
             return [
@@ -57,21 +59,28 @@ class UserService
         }
 
     }
-    public function update($data, $id){
+    public function update($request, $id){
 
-        try{
+        try{ 
             
-            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);            
 
-            $update = $this->repository->update($data, $id);   
-                  
+            if(\Hash::check($request->oldPassword, Auth::user()->password))
+            
+                $update = $this->repository->update($request->all(), $id);
 
-            return [
-                'success' => true,
-                'message' =>'Cadastro Atualizado com sucesso',
-                'data' => null,
-            ];
+                if(isset($request->newPassword)){
+                $request->user()->fill([
+                    'password' => Hash::make($request->newPassword)
+                ])->save();
+                }
 
+                return [
+                    'success' => true,
+                    'message' =>'Cadastro Atualizado com sucesso',
+                    'data' => null,
+                ];
+            
         }
         catch(\Exception $e){
 
@@ -88,11 +97,6 @@ class UserService
         }
 
 
-
-
-
-
-
     }
 
     public function delete($id){
@@ -102,16 +106,23 @@ class UserService
 
             return [
                 'success' => true,
-                'message' =>'Usuario removido com sucesso',                
+                'message' =>'Usuario removido com sucesso',
+                'data' => null,                
             ];
 
         }
         catch(\Exception $e){
-            return [
-                'success' => false,
-                'message' => $e->getMessage() . 'Houve um erro na remocao do Usuario',
-                
-            ];
+
+            switch (get_class($e)) {
+                case QueryException::Class      : return ['success' => false, 'message' => $e->getMessage() . 'Houve um erro no processo de Registro'];                 
+                    break;
+                case ValidatorException::Class  : return ['success' => false, 'message' => $e->getMessageBag() . 'Houve um erro no processo de Registro'];                 
+                    break;
+                case Exception::Class           : return ['success' => false, 'message' => $e->getMessage() . 'Houve um erro no processo de Registro'];                 
+                    break;                
+                default                         : return ['success' => false, 'message' => $e->getMessage() . 'Houve um erro no processo de Registro'];
+                    break;
+            }
         }
     }
 

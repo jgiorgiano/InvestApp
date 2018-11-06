@@ -18,11 +18,11 @@
                 <td>{{ $group->user['name']}}</td>    {{-- isso funciona pq criou o relacionamento no model/Entity do grupo --}}
                 <td>{{ $group->institution->name}}</td>          {{-- isso funciona pq criou o relacionamento no model/Entity do grupo --}}                      
                 <td>
-                    {!! Form::open(['route'=> ['group.destroy', $group->id], 'method' => 'DELETE']) !!} 
+                    <a href="{{ route('group.show', $group->id) }}" class="btn btn-sm btn-primary">+ Participantes</a>
+                    <a href="{{ route('group.edit', $group->id) }}" class="btn btn-sm btn-info">Editar</a>                                    
+                    {!! Form::open(['route'=> ['group.destroy', $group->id], 'method' => 'DELETE', 'class' => 'formInline']) !!} 
                         {!! Form::button("Remover", ['class' => 'btn btn-sm btn-warning', 'type' => 'submit'] ) !!}                        
                     {!! Form::close() !!}
-                <a href="{{ route('group.show', $group->id) }}" class="btn btn-sm btn-primary">+ Detalhes</a>
-                <a href="{{ route('group.edit', $group->id) }}" class="btn btn-sm btn-info">Editar</a>                                    
                 </td>
                 </tr>
             @endforeach 

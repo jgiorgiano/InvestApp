@@ -53,8 +53,7 @@ class InstitutionsController extends Controller
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $institutions = $this->repository->all();
-
-        
+                
         return view('institutions.index', [
             'institutions' => $institutions
             ]);
@@ -69,9 +68,8 @@ class InstitutionsController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(InstitutionsCreateRequest $request)
-    {
-
+    public function store(InstitutionsCreateRequest $request)    {
+        
         $request        = $this->service->store($request->all());
 
         $institution    = $request['success'] ? $request['data'] : $instituion = null;            

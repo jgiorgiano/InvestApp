@@ -22,7 +22,7 @@ class CreateUserSocialsTable extends Migration
             $table->string('social_email');
             $table->string('Social_avatar');
             
-            $table->timestampTz();		
+            $table->timestamps();		
        
             
             //Foreign Key

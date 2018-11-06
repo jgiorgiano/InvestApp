@@ -37,10 +37,10 @@
                                 <td>{{ $product->interest_rate}}</td>          
                                 <td>{{ $product->index}}</td>                     
                                 <td>
-                                    {!! Form::open(['route'=> ['institution.products.destroy', $institution->id, $product->id], 'method' => 'DELETE']) !!} 
+                                    <a href="{{ route('institution.products.edit', [$institution->id, $product->id]) }}" class="btn btn-sm btn-info">Editar</a>                                    
+                                    {!! Form::open(['route'=> ['institution.products.destroy', $institution->id, $product->id], 'method' => 'DELETE', 'class' => 'formInline']) !!} 
                                         {!! Form::button("Remover", ['class' => 'btn btn-sm btn-warning', 'type' => 'submit'] ) !!}                        
                                     {!! Form::close() !!}                                
-                                <a href="{{ route('institution.products.edit', [$institution->id, $product->id]) }}" class="btn btn-sm btn-info">Editar</a>                                    
                                 </td>
                                 </tr>
                             @empty

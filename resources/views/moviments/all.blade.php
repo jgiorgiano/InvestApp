@@ -31,6 +31,12 @@
                                     <td>{{ $moviment->value}}</td>
                                 </tr>
                             @endforeach
+                            <tr>
+                                    <th> Valor Total Investido</th>   
+                                    <td></td> <td></td> <td></td>                      
+                                    <th>{{ $moviment->product->getTotal(Auth::user()) }}</th>
+                                   
+                                </tr>
                         </tbody>
                         </table>
                 </div>

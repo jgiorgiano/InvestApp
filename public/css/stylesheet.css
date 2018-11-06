@@ -7,6 +7,10 @@ padding: 20px;
     height: 100vh;
 }
 
+.formInline{
+    display: inline;
+}
+
 #login h1{
 font-family: roboto, sans serit;
 font-weight: 600;

@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
 			$table->text('description');
 			$table->decimal('interest_rate');
 			$table->text('index');
-			$table->timestampTz();
+			$table->timestamps();
 			$table->softDeletesTz();
 
 		//FK's

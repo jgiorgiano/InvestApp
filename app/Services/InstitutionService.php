@@ -25,7 +25,7 @@ class InstitutionService
         try{
             
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);// copiado do InstitutionsController
-
+            
             $institution = $this->repository->create($data);
 
             return [

@@ -32,12 +32,12 @@
                                     <th scope="row">{{ $inst->id }}</th>
                                     <td>{{ $inst->name}}</td>                                    
                                     <td>
-                                        {!! Form::open(['route'=> ['institution.destroy', $inst->id], 'method' => 'DELETE']) !!} 
+                                        <a href="{{ route('institution.show', $inst->id )}}" class="btn btn-sm btn-primary">Grupos</a>
+                                        <a href="{{ route('institution.products.index', $inst->id )}}" class="btn btn-sm btn-primary">Produtos</a>                            
+                                        <a href="{{ route('institution.edit', $inst->id )}}" class="btn btn-sm btn-info">Editar</a>  
+                                        {!! Form::open(['route'=> ['institution.destroy', $inst->id], 'method' => 'DELETE', 'class' => 'formInline']) !!} 
                                             {!! Form::button("Remover", ['class' => 'btn btn-sm btn-warning', 'type' => 'submit'] ) !!}  
                                         {!! Form::close() !!}
-                                        <a href="{{ route('institution.show', $inst->id )}}" class="btn btn-sm btn-primary">+ Detalhes</a>
-                                        <a href="{{ route('institution.edit', $inst->id )}}" class="btn btn-sm btn-info">Editar</a>  
-                                        <a href="{{ route('institution.products.index', $inst->id )}}" class="btn btn-sm btn-primary">Produtos</a>                            
                                     </td>
                                 </tr>
                             @endforeach

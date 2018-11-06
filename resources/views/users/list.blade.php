@@ -17,11 +17,11 @@
             <td>{{ $user->FormatedName }}</td>
             <td>{{ $user->email}}</td>
             <td>{{ $user->FormatedPhone}}</td>
-            <td>
-                {!! Form::open(['route'=> ['user.destroy', $user->id], 'method' => 'DELETE']) !!} 
+            <td>                               
+                <a href="{{route('user.edit', $user->id)}}" class="btn btn-info btn-sm">Editar</a>
+                {!! Form::open(['route'=> ['user.destroy', $user->id], 'method' => 'DELETE', 'class' => 'formInline']) !!} 
                     {!! Form::button("Remover", ['class' => 'btn btn-sm btn-warning', 'type' => 'submit'] ) !!}  
-                {!! Form::close() !!}    
-            <a href="{{route('user.edit', $user->id)}}" class="btn btn-info btn-sm">Editar</a>                               
+                {!! Form::close() !!} 
             </td>
             </tr>
         @endforeach

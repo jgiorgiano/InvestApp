@@ -20,15 +20,16 @@ class UserValidator extends LaravelValidator
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
             'name'  => 'required',
-            'cpf'   => 'required',
-            'phone' => 'required',
-            'email' => 'required',
+            'cpf'   => 'required|digits:11',
+            'phone' => 'required|digits:11',
+            'email' => 'required|email',
         ],
         ValidatorInterface::RULE_UPDATE => [
             'name'  => 'required',
-            'cpf'   => 'required',
-            'phone' => 'required',
-            'email' => 'required',
+            'cpf'   => 'required|digits:11',
+            'phone' => 'required|digits:11',
+            'email' => 'required|email',
+            'oldPassword' => 'required',
         ]
     ];
 }

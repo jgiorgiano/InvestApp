@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration
 			$table->string('permission')->default('app.user');
 
 			$table->rememberToken();
-			$table->timestampTz();
+			$table->timestamps();
 			$table->softDeletesTz(); //funcao marca como deletado no BD mas nao deleta definitavamente as informacoes
 		});
 	}

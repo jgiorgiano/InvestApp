@@ -17,7 +17,8 @@
                         @include('layouts.input', ['label' => 'Nome', 'input' => 'name', 'atributes'=> ['placeholder' => 'Nome', 'class' => 'form-control']])
                         @include('layouts.input', ['label' => 'Telefone', 'input' => 'phone', 'atributes'=> ['placeholder' => 'Telefone', 'class' => 'form-control']])
                         @include('layouts.input', ['label' => 'E-mail', 'input' => 'email', 'atributes'=> ['placeholder' => 'E-mail', 'class' => 'form-control']])
-                        @include('layouts.password', ['input' => 'password', 'atributes'=> ['placeholder' => 'Senha', 'class' => 'form-control']])
+                        @include('layouts.password', ['label' => 'Nova Senha','input' => 'newPassword', 'atributes'=> ['placeholder' => 'Digite uma Nova senha', 'class' => 'form-control']])
+                        @include('layouts.password', ['label' => 'Senha antiga','input' => 'oldPassword', 'atributes'=> ['placeholder' => 'Senha', 'class' => 'form-control']])
                         @include('layouts.submit', ['input' => 'Atualizar', 'atributes'=> ['class' => 'btn btn-success', 'type' => 'submit']])
                     {!! Form::close() !!}     
                     

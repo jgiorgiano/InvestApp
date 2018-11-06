@@ -76,30 +76,19 @@ class UsersController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(UserCreateRequest $request)
-    {
+    public function store(UserCreateRequest $request)  {
       
-
-                $request = $this->service->store($request->all());
-
-                $usuario = $request['success'] ? $request['data'] : $usuario = null;              
-                /* if($request['success']){
-                    $usuario = $request['data'];
-                    return $usuario;
-                }else{}
-                    $usuario = null;
-                }; */
-
-                session()->flash('success', [
-                       'success' => $request['success'],
-                       'message' => $request['message'],
-                ]);
-
-               // return view('users.index',['usuario' => $usuario]);
-               return redirect()->route('user.index');
-
-
-        /* try {
+        $request = $this->service->store($request->all());
+        
+        $usuario = $request['success'] ? $request['data'] : $usuario = null;              
+       
+        session()->flash('success', [
+               'success' => $request['success'],
+               'message' => $request['message'],
+        ]);
+       
+       return redirect()->route('user.index');
+     /* try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
@@ -177,7 +166,7 @@ class UsersController extends Controller
      */
     public function update(UserUpdateRequest $request, $id)
     {
-            $update = $this->service->update($request->all(), $id); 
+            $update = $this->service->update($request, $id); 
             
             //$usuario = $request['success'] ? $request['data'] : $usuario = null;
 
@@ -204,7 +193,7 @@ class UsersController extends Controller
         $delete = $this->service->delete($id);
       
 
-         session()->flash('deleted', [
+         session()->flash('success', [
                 'success' => $delete['success'],
                 'message' => $delete['message'],
          ]);
