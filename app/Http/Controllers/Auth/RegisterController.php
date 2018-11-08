@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\UserCreateRequest;
+use App\Services\UserService;
 
 class RegisterController extends Controller
 {
@@ -35,9 +37,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserService $service)
     {
         $this->middleware('guest');
+        $this->service = $service;
     }
 
     /**
@@ -68,5 +71,20 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function store(UserCreateRequest $request)  {
+      
+        $request = $this->service->store($request->all());
+        
+        $usuario = $request['success'] ? $request['data'] : $usuario = null;              
+       
+        session()->flash('success', [
+               'success' => $request['success'],
+               'message' => $request['message'] . ($request['success'] ? '! ' . 'Faca seu Login.' : ' '),
+        ]);
+       
+        return view('auth.login');
+     
     }
 }

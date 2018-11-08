@@ -62,6 +62,7 @@ class MovimentsController extends Controller
     public function all(){
         return view('moviments.all', [
             'moviment_list' => Auth::user()->moviments,
+            'moviment' => Moviment::class,
         ]);
     }
 

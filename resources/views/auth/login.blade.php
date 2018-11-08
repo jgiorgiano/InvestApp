@@ -11,7 +11,7 @@
         <div id="login" class="col-md-4 bg-success py-4"> 
             <div class="fh">   
             <h1>Investindo</h1>
-            <h6>O nosso Gerenciador de Investimentos</h6>            
+            <h6>O nosso Gerenciador de Investimentos</h6>    
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -60,6 +60,14 @@
                             </div>
                         </div>
                     </form>
+                <a class="btn text-white my-3" href="user/new">Não e cliente! Clique aqui e Registre-se Agora</a>
+
+                @if (session('success'))
+                    <div class="alert <?= session('success')['success'] ? 'alert-success' : 'alert-danger'?> " role="alert">
+                        {{ session('success')['message'] }}
+                    </div>
+                @endif
+                
                 </div>
             </div>
     </div>

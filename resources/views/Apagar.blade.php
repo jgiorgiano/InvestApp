@@ -11,7 +11,14 @@
         <div id="login" class="col-md-4 bg-success py-4"> 
             <div class="fh">   
             <h1>Investindo</h1>
-            <h6>O nosso Gerenciador de Investimentos</h6>            
+            <h6>O nosso Gerenciador de Investimentos</h6>    
+            
+            @if (session('success'))
+                <div class="alert <?= session('success')['success'] ? 'alert-success' : 'alert-danger'?> " role="alert">
+                    {{ session('success')['message'] }}
+                </div>
+            @endif
+
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -49,7 +56,7 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                            <div class="col-md-10 offset-md-4">
                                 <button type="submit" class="btn btn-warning">
                                     {{ __('Entrar') }}
                                 </button>
@@ -57,9 +64,12 @@
                                 <a class="btn text-white" href="{{ route('password.request') }}">
                                     {{ __('Esqueceu sua senha?') }}
                                 </a>
+                                <a href="#">Registre-se Agora</a>
                             </div>
+                            
                         </div>
                     </form>
+                
                 </div>
             </div>
     </div>

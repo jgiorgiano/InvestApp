@@ -21,22 +21,26 @@
                                 <th scope="col">Valor</th>                                
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach($moviment_list as $moviment)
-                                <tr> 
-                                    <td>{{ $moviment->created_at->format('d/m/Y H:i')}}</td>                                    
-                                    <td>{{ $moviment->product->name}}</td>
-                                    <td>{{ $moviment->group->name}}</td>
-                                    <td>{{ $moviment->type == 1 ? 'Aplicacão' : 'Resgate'}}</td>
-                                    <td>{{ $moviment->value}}</td>
-                                </tr>
-                            @endforeach
-                            <tr>
-                                    <th> Valor Total Investido</th>   
-                                    <td></td> <td></td> <td></td>                      
-                                    <th>{{ $moviment->product->getTotal(Auth::user()) }}</th>
-                                   
-                                </tr>
+                        <tbody>                            
+                            @if(isset($moviment_list->value))
+                                @foreach($moviment_list as $moviment)
+                                    <tr> 
+                                        <td>{{ $moviment->created_at->format('d/m/Y H:i')}}</td>                                    
+                                        <td>{{ $moviment->product->name}}</td>
+                                        <td>{{ $moviment->group->name}}</td>
+                                        <td>{{ $moviment->type == 1 ? 'Aplicacão' : 'Resgate'}}</td>
+                                        <td>{{ $moviment->value}}</td>
+                                    </tr>
+                                @endforeach
+                                    <tr>
+                                        <th colspan="4"> Valor Total Investido</th>                                                             
+                                        <th>{{ $moviment->product->getTotal(Auth::user()) }}</th>                                    
+                                    </tr>
+                                @else 
+                                    <tr>
+                                        <th colspan="5"> Nenhuma movimentacao Registrada </th>                                    
+                                    </tr>
+                            @endif    
                         </tbody>
                         </table>
                 </div>

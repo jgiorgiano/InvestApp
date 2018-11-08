@@ -17,6 +17,9 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('user/new', function(){return view('users.newUser');});
+Route::post('newUser.store', ['as' => 'newUser.store', 'uses' => 'Auth\RegisterController@store']);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -81,7 +81,7 @@
 
 
         <main>
-            @if(!isset($home))
+            @if(!isset($home) && Auth::user())
             <div class="container-fluid">
                 <div class="row justify-content">
                     <div class="col-md-2 px-0">
@@ -91,7 +91,7 @@
                         <div class="card">
             @endif                
                             @yield('content')
-            @if(!isset($home))                
+            @if(!isset($home) && Auth::user())                
                         </div>        
                     </div> 
                 </div>

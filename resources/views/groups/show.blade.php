@@ -3,7 +3,7 @@
 @section('content')
                 <div class="card-header">
                     <h5>Grupo: <strong>{{ $group->name }} </strong></h5>
-                    <h6>Gestor do Grupo: <strong> {{$group->user->name}} </strong></h6>
+                    <h6>Gestor do Grupo: <strong> {{$group->user->name ?? 'Nao registrado'}} </strong></h6>
                     <h6>Instituicao: <strong>{{$group->institution->name}} </strong></h6>
                 </div>
                 <div class="card-body">
