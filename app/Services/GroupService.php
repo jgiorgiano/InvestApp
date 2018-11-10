@@ -117,4 +117,33 @@ class GroupService
         }
 
     }
+
+    public function userDelete($group_id, $user_id){
+        
+        try{    
+            $group      = $this->repository->find($group_id);       // faz a busca do grupo correto pelo id que foi passado na url
+            $group->users()->detach($user_id);                      // pega o grupo selecionado acima e usa o methodo users
+                                                                    //(belongs to many/dentro do model)  e faz o attach do user_id 
+
+            return [
+                'success' => true,
+                'message' => 'Usuario removido do grupo com Sucesso',
+                'data' => $group,
+            ];
+
+        }
+        catch(\Exception $e){                
+            switch (get_class($e)) {
+                case QueryException::Class      : return ['success' => false, 'message' => $e->getMessage() . 'Houve um erro no processo de Registro'];                 
+                    break;
+                case ValidatorException::Class  : return ['success' => false, 'message' => $e->getMessageBag() . 'Houve um erro no processo de Registro'];                 
+                    break;
+                case Exception::Class           : return ['success' => false, 'message' => $e->getMessage() . 'Houve um erro no processo de Registro'];                 
+                    break;                
+                default                         : return ['success' => false, 'message' => $e->getMessage() . 'Houve um erro no processo de Registro'];
+                    break;
+            }
+        }
+    }
+
 }

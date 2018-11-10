@@ -41,4 +41,5 @@ Route::resource('institution.products', 'ProductsController');
 
 
 Route::post('group/{group_id}/user', ['as' => 'group.user.store', 'uses' => 'GroupsController@userStore']);
+Route::delete('group/{group_id}/user/{user_id}', ['as' => 'group.user.destroy', 'uses' => 'GroupsController@userDestroy']);
 

@@ -190,4 +190,16 @@ class GroupsController extends Controller
 
        return redirect()->back();
     }
+
+    public function userDestroy($group_id, $user_id)
+    {
+        $deleted = $this->service->userDelete($group_id, $user_id);
+        
+       session()->flash('success',[ 
+        'success'   => $deleted['success'],
+        'message'      => $deleted['message'],
+       ]);
+
+       return redirect()->back();
+    }
 }

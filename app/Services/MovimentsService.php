@@ -7,6 +7,10 @@ use App\Http\Requests\MovimentCreateRequest;
 use App\Http\Requests\MovimentUpdateRequest;
 use App\Repositories\MovimentRepository;
 use App\Validators\MovimentValidator;
+use App\Entities\Group;
+use App\Entities\Products;
+use App\Entities\Moviment;
+use Auth;
 
 
 class MovimentsService{
@@ -14,10 +18,11 @@ class MovimentsService{
 private $repository;
 private $validator;
 
-public function __construct(MovimentRepository $repository, MovimentValidator $validator)
+public function __construct(MovimentRepository $repository, MovimentValidator $validator, Products $product)
 {
     $this->repository = $repository;
     $this->validator = $validator;
+    $this->product = $product;
 
 }
 
@@ -63,8 +68,10 @@ public function getBackStore($data, $user_id, $productList){
     $data['type']    = 2;    
 
     $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
+    /* dd($data) */      
+    dd(Moviment::where(['user_id' => 8, 'product_id' => 2])->sum('value'));
 
-    $request = $this->repository->create($data);
+    /* $request = $this->repository->create($data) */;
     
 
     return [

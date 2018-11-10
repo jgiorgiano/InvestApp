@@ -15,7 +15,7 @@
                 <th scope="row">{{ $group->id }}</th>
                 <td>{{ $group->name}}</td>
                 <td>R$ {{ number_format($group->TotalInvest, 2, ",", ".") }}</td>
-                <td>{{ $group->user['name']}}</td>    {{-- isso funciona pq criou o relacionamento no model/Entity do grupo --}}
+                <td>{{ $group->user['name'] ?? 'Não Relacionado'}}</td>    {{-- isso funciona pq criou o relacionamento no model/Entity do grupo --}}
                 <td>{{ $group->institution->name}}</td>          {{-- isso funciona pq criou o relacionamento no model/Entity do grupo --}}                      
                 <td>
                     <a href="{{ route('group.show', $group->id) }}" class="btn btn-sm btn-primary">+ Participantes</a>

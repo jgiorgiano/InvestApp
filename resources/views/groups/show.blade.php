@@ -24,7 +24,7 @@
                         @include('layouts.submit', ['input' => 'Adicionar ao Grupo '. $group->name, 'atributes'=> ['class' => 'btn btn-success', 'type' => 'submit']])
                     {!! Form::close() !!}  
 
-                    @include('users.list', ['userList' => $group->users])
+                    @include('users.list', ['userList' => $group->users, 'groupId' => $group->id])
 
                 </div>
         </div>

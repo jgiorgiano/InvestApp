@@ -21,7 +21,7 @@
                         </thead>
                         <tbody>
                             @foreach($products_list as $product)
-                                <tr>                                    
+                                <tr>                                                                       
                                     <td>{{ $product->name}}</td>                                    
                                     <td>{{ $product->institution->name}}</td>
                                     <td>{{ $product->valueFromUser(Auth::user())}}</td>

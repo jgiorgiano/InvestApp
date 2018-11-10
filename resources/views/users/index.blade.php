@@ -23,6 +23,6 @@
                     
                 </div>
                 
-                @include('users.list', ['userList' => $users])
+                @include('users.list', ['userList' => $users, 'userEdit' => true])
 
 @endsection
