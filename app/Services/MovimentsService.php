@@ -68,17 +68,32 @@ public function getBackStore($data, $user_id, $productList){
     $data['type']    = 2;    
 
     $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
-    /* dd($data) */      
-    dd(Moviment::where(['user_id' => 8, 'product_id' => 2])->sum('value'));
-
-    /* $request = $this->repository->create($data) */;
     
+    
+ //refazer essa parte utilizando  eloquente, ja tenho o method getTotal no Products Entities, mas nao consegui fazer funcionar
 
-    return [
-        'success'   => true,
-        'message'   => 'Resgate de R$ ' . number_format($data['value'],2 , ",", ".") . ' efetuado com sucesso no produto ' . $productList[$data['product_id']] . '.',
-        'data'      => $request,
-    ];        
+        $inFlows = Moviment::where(['user_id' => Auth::user()->id, 'product_id' => $data['product_id'], 'group_id' => $data['group_id'], 'type' => 1])->sum('value');
+        $outFlows = Moviment::where(['user_id' => Auth::user()->id, 'product_id' => $data['product_id'], 'group_id' => $data['group_id'], 'type' => 2])->sum('value');
+        $totalAvailable = $inFlows - $outFlows;   
+    
+    if($data['value'] <= $totalAvailable){
+
+        $request = $this->repository->create($data);   
+
+        return [
+            'success'   => true,
+            'message'   => 'Resgate de R$ ' . number_format($data['value'],2 , ",", ".") . ' efetuado com sucesso no produto ' . $productList[$data['product_id']] . '.',
+            'data'      => $request,
+        ];
+        
+    }else{
+
+        return [
+            'success'   => false,
+            'message'   => 'Resgate não autorizado, valor disponivel para resgate R$ ' . number_format($totalAvailable,2 , ",", ".") . '  no produto ' . $productList[$data['product_id']] . '.',
+            'data'      => null,
+        ];
+    };    
     
     }
     catch(\Exception $e){

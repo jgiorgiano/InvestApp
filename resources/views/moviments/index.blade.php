@@ -21,16 +21,18 @@
                         </thead>
                         <tbody>
                             @foreach($products_list as $product)
-                                <tr>                                                                       
-                                    <td>{{ $product->name}}</td>                                    
-                                    <td>{{ $product->institution->name}}</td>
-                                    <td>{{ $product->valueFromUser(Auth::user())}}</td>
-                                </tr>
+                                @if($product->valueFromUser(Auth::user())!= 0 ) 
+                                    <tr>                                                                       
+                                        <td>{{ $product->name}}</td>                                    
+                                        <td>{{ $product->institution->name}}</td>
+                                        <td>{{ 'R$ ' . number_format($product->valueFromUser(Auth::user()), 2 , "," , "." )}}</td>
+                                    </tr>
+                                @endif
                             @endforeach
                             <tr>
                                 <th> Valor Total Investido</th>   
                                 <td></td>                             
-                                <th>{{ $product->getTotal(Auth::user()) }}</th>
+                                <th>{{ 'R$ ' . number_format( $product->getTotal(Auth::user()), 2 , "," , ".")  }}</th>
                                
                             </tr>
                         </tbody>

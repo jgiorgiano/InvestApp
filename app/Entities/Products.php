@@ -41,7 +41,7 @@ class Products extends Model implements Transformable
         $outFlows = $this->moviments()->outFlows()->where('user_id', $user->id)->sum('value');
         $total = $inFlows - $outFlows;
 
-        return 'R$ ' . number_format($total, 2, "," , ".");
+        return $total;
     }
 
     public function getTotal(user $user){
@@ -52,7 +52,7 @@ class Products extends Model implements Transformable
 
        $total = $inFlows - $outFlows;
        
-       return 'R$ ' . number_format($total, 2, "," , ".");
+       return $total;
         
     }
    
